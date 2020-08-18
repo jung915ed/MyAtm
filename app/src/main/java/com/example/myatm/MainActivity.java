@@ -6,6 +6,7 @@ import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -21,9 +22,20 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final int REQUEST_LOGIN = 100;
     boolean logon = false;
 
     private AppBarConfiguration appBarConfiguration;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_LOGIN) {
+            if (requestCode != RESULT_OK) {
+                finish();
+            }
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +43,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         if (!logon) {
             Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
+            //startActivity(intent);
+            startActivityForResult(intent, REQUEST_LOGIN);//request code
+
         }
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

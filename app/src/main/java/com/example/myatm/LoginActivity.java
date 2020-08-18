@@ -23,6 +23,7 @@ public class LoginActivity extends AppCompatActivity {
         String userid = edUser.getText().toString();
         String passwd = edPasswd.getText().toString();
         if ("jack".equals(userid) && "1234".equals(passwd)) {
+            setResult(RESULT_OK);
             finish();
         }
     }
